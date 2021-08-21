@@ -338,7 +338,7 @@ function try_recalc(){
         ord_speed_for_calc.max_speed[0]
         );
     move_time += trafic_sections[0].time_mov;
-    alert(move_time);
+    alert(ord_speed_for_calc.max_speed[0]+'/'+start_speed_local+'/'+obj_ordinate+'/'+ord_speed_for_calc.ord[0]);
     //alert(move_time);
     let len_notification_calc = document.getElementById("len_notification_calc");
     let len_notification_fact = document.getElementById("len_notification_fact");
