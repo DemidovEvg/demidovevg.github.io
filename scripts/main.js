@@ -243,7 +243,7 @@ function try_recalc(){
             input.setAttribute("placeholder", "");
         }
         if (!((sector_ord[i-1] === "null") || (sector_ord[i-1] === ""))){
-            alert('как сюда попали?');
+            alert(typeof(sector_ord[i-1]));
             ord_speed_for_calc.ord[ord_speed_for_calc.count] = parseFloat(sector_ord[i-1]);
             ord_speed_for_calc.max_speed[ord_speed_for_calc.count] = parseFloat(speed_on_sector[i-1]/(3.6));
             ord_speed_for_calc.count_ord_in_table[ord_speed_for_calc.count] = i;
