@@ -259,6 +259,12 @@ function try_recalc(){
     }
     //alert(ord_speed_for_calc.count);
     //} Считаем параметры движения по всем возможным участкам
+    
+    //Проверяем наличие ординат пути
+    if (ord_speed_for_calc.count===0){
+        alert("нет ординат")
+        return;
+    }
 
     // Проверяем порядок ординат если значений больше одного{
     if (ord_speed_for_calc.count>=2) {
@@ -303,8 +309,7 @@ function try_recalc(){
     // Проверяем наличие скоростей{
         for (let i = 0; i < ord_speed_for_calc.count; i++){
             if (ord_speed_for_calc.max_speed[i]<=0){
-                let input = document.getElementById("speed_on_sector" + ord_speed_for_calc.count_ord_in_table[i]);
-                
+                let input = document.getElementById("speed_on_sector" + ord_speed_for_calc.count_ord_in_table[i]);            
                 input.style.backgroundColor = colors.red;
                 return;
             } else {
