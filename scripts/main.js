@@ -223,6 +223,7 @@ function try_recalc(){
         input.style.backgroundColor = colors.white;
         input = document.getElementById("sector_ord" + i);
         input.style.backgroundColor = colors.white;
+        alert(sector_picket[i-1]);
         if (!((sector_picket[i-1] === "null") || (sector_picket[i-1] === "")) && ((sector_ord[i-1] === "null") || (sector_ord[i-1] === ""))){
                 input = document.getElementById("sector_ord" + i);        
                 input.style.backgroundColor = colors.grey;
