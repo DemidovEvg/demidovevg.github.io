@@ -421,7 +421,7 @@ function reload_recalc_listener(id){
     let element_storage;
     element_storage = localStorage.getItem(id);  
     //alert(element_storage);
-    if (localStorage.hasOwnProperty(id) && (element_storage !== "null")){      
+    if (localStorage.hasOwnProperty(id) && (element_storage !== "null") && (element_storage !== "")){      
         alert(element_storage);
         input.value = element_storage;
     }
