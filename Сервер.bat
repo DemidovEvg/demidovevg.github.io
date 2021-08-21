@@ -1,0 +1,1 @@
+start "" "G:\000-‘˜ à¯\WEB\server.py"

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf_8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AutoSCB</title>
+    <link rel="stylesheet" type="text/css" href="styles/styles.css">
+    
+  </head>
+
+  <body>
+    <div class='container'>
+      <div class="header">
+        <h1>Рассчет параметров для переезда, пешеходного перехода, оповещения монтеров пути, САУТ</h1>
+        <span class='tooltip'><img id='info' src="img/info.png"/>
+          <span class="tooltiptext">Навигация по ячейкам</br><img id='control_keys' src="img/control.png"/></span>
+        </span> 
+      </div>
+      <!--Блок начальных значений для расчета-->
+
+      <div class="options-for-calc">
+        <label class="label-double" for="notification_time_required"><span class="vert_center">Время извещения (с)</span></label>    
+        <label class="label-double" for="obj_width"><span class="vert_center" value="0">Ширина объекта <br/> (если треб.) (м)</span></label> 
+        <input class="input-double" type="number" id="notification_time_required" name="notification_time_required">
+        <input class="input-double" type="number" id="obj_width" name="obj_width">
+      </div>
+
+      <div class="result-container">     
+        <div class="cell-head"><span class="vert_center" id="len_notification_calc_head">Длина участка извещения <br> расчетн. <br> Lр(м) </span></div>
+        <div class="cell-head"><span class="vert_center" id="len_notification_fact_head">Длина участка извещения <br> факт. <br> Lр(м) </span></div>
+        <div class="cell-head"><span class="vert_center" id="time_notification_head">Время извещения факт.<br>tф(с)</span></div>
+        <div class="cell-head"><span class="vert_center" id="delay_notification_head">Задержка извещения. <br> расчетн. <br> tз.р.(с)</span></div>
+        <div class="result-data" id="len_notification_calc">1000</div>
+        <div class="result-data" id="len_notification_fact">1000</div>
+        <div class="result-data" id="time_notification">1000</div>
+        <div class="result-data" id="delay_notification">1000</div>
+        <div class="cell-head span-2"><span class="vert_center" id="l_from_light_head">Расстояние до объекта от светофора. <br> L(м) </span></div>
+        <div class="cell-head"><span class="vert_center" id="time_from_light_head">Время движения при трогании с места.  <br> tтр(с) </span></div>
+        <div class="cell-head"><span class="vert_center" id="delay_open_light_head">Задержка открытия светофора(с) <br> Расчетн. <br> tр.вв.</span></div>
+        <div class="result-data" id="l_from_light">1000</div>
+        <div class="result-data" id="time_from_light">1000</div>
+        <div class="result-data" id="delay_open_light">1000</div>
+      </div>
+
+      <div class="event-messages">
+        <span class="messages" id="message_result"></span>
+        <span class="messages" id="message_error"></span>
+        <span class="messages" id="message_info"></span>
+      </div>
+      <div class="obj-coordiantes">
+        <label class="cell-head" for="obj_picket"><span class="vert_center">Пикет объекта</span></label>
+        <label class="cell-head" for="obj_ordinate"><span class="vert_center">Ордината объекта</span></label>
+        <label class="cell-head" for="start_speed"><span class="vert_center">Начальная скорость км/ч</span></label>
+        <input class="input-data span2" type="number" id="obj_picket" name="obj_picket">
+        <input class="input-data" type="number" id="obj_ordinate" name="obj_ordinate">
+        <input class="input-data" type="number" id="start_speed" name="start_speed">
+      </div>
+      <div class="path-to-obj">
+        <div id="train"><img src="img/train_with_direction.png"></div>    
+        <label class="cell-head col1" for="sector_picket"><span class="vert_center">Пикет точки отсчета</span></label> 
+        <label class="cell-head" for="sector_ord"><span class="vert_center">Ордината точки отсчета</span></label>
+        <label class="cell-head" for="speed_on_sector"><span class="vert_center">Uмакс начиная от точки км/ч</span></label>        
+        <input class="input-data col1" type="number" id="sector_picket1" name="sector_picket1" placeholder="">
+        <input class="input-data" type="number" id="sector_ord1" name="sector_ord1" placeholder="">
+        <input class="input-data" type="number" id="speed_on_sector1" name="speed_on_sector1">
+        <input class="input-data col1" type="number" id="sector_picket2" name="sector_picket2" placeholder="">
+        <input class="input-data" type="number" id="sector_ord2" name="sector_ord2" placeholder="">
+        <input class="input-data" type="number" id="speed_on_sector2" name="speed_on_sector2">
+        <input class="input-data col1" type="number" id="sector_picket3" name="sector_picket3" placeholder="">
+        <input class="input-data" type="number" id="sector_ord3" name="sector_ord3" placeholder="">
+        <input class="input-data" type="number" id="speed_on_sector3" name="speed_on_sector3">
+        <input class="input-data col1" type="number" id="sector_picket4" name="sector_picket4" placeholder="">
+        <input class="input-data" type="number" id="sector_ord4" name="sector_ord4" placeholder="">
+        <input class="input-data" type="number" id="speed_on_sector4" name="speed_on_sector4">
+        <input class="input-data col1" type="number" id="sector_picket5" name="sector_picket5" placeholder="">
+        <input class="input-data" type="number" id="sector_ord5" name="sector_ord5" placeholder="">
+        <input class="input-data" type="number" id="speed_on_sector5" name="speed_on_sector5">
+        <input class="input-data col1" type="number" id="sector_picket6" name="sector_picket6" placeholder="">
+        <input class="input-data" type="number" id="sector_ord6" name="sector_ord6" placeholder="">
+        <input class="input-data" type="number" id="speed_on_sector6" name="speed_on_sector6">
+        <input class="input-data col1" type="number" id="sector_picket7" name="sector_picket7" placeholder="">
+        <input class="input-data" type="number" id="sector_ord7" name="sector_ord7" placeholder="">
+        <input class="input-data" type="number" id="speed_on_sector7" name="speed_on_sector7">
+        <input class="input-data col1" type="number" id="sector_picket8" name="sector_picket8" placeholder="">
+        <input class="input-data" type="number" id="sector_ord8" name="sector_ord8" placeholder="">
+        <input class="input-data" type="number" id="speed_on_sector8" name="speed_on_sector8">
+        <input class="input-data col1" type="number" id="sector_picket9" name="sector_picket9" placeholder="">
+        <input class="input-data" type="number" id="sector_ord9" name="sector_ord9" placeholder=""> 
+        <input class="input-data" type="number" id="speed_on_sector9" name="speed_on_sector9">
+        <input class="input-data col1" type="number" id="sector_picket10" name="sector_picket10" placeholder="">
+        <input class="input-data" type="number" id="sector_ord10" name="sector_ord10" placeholder="">
+        <input class="input-data" type="number" id="speed_on_sector10" name="speed_on_sector10">
+      </div>
+
+      <footer>
+        <p>Автор: Демидов Евгений</p>
+        <p>Контакты для связи: Demidov.evg.v@gmail.com</p>
+        
+      </footer>
+  </div>
+
+
+    <script src="scripts/main.js"></script>
+    
+  </body>

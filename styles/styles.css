@@ -1,0 +1,263 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+/*@font-face {
+  font-family: 'aleo-regular-webfont';
+  font-style: normal;
+  font-weight: 400;
+  src: local('aleo-regular-webfont'),
+        url('../fonts/Aleo-Font/Webfont Kit/Regular/aleo-regular-webfont.woff2') format('woff2'),
+        url('../fonts/Aleo-Font/Webfont Kit/Regular/aleo-regular-webfont.woff') format('woff'),
+        url('../fonts/Aleo-Font/Webfont Kit/Regular/aleo-regular-webfont.ttf') format('truetype'),
+        url('../fonts/Aleo-Font/Webfont Kit/Regular/aleo-regular-webfont.eot') format('embedded-opentype');
+}*/
+
+body {
+  --color-blue: #92b4fd;
+  --color-grey: #c5c6ca;
+  --color-yellow: #ffd540;
+  --color-black: #000;
+  --color-white:#f4f5ff;
+
+  font-family: sans-serif;
+  font-size: 1em;
+  width: 100%;
+  /*border: 1px solid var(--color-black);*/
+  background-color: #727272;
+  
+}
+.container {
+  margin: 0 auto;
+  max-width: 1000px;
+  background-color: var(--color-blue);
+} 
+
+.header {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) 0.1fr ;
+  /*align-items:center;*/
+  justify-items: center;
+  align-items: center;
+  border: 1px solid var(--color-black);
+}
+
+h1 {
+  display: inline;
+  text-align: center;
+  font-size: 1.2em;
+  text-align: center;
+}
+
+/* Tooltip container */
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+/* Tooltip text */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  /*width: 120px;*/
+  background-color: var(--color-white);
+  color: var(--color-black);
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  border: 1px solid var(--color-black);
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  top: 35px;
+  right: 0px;
+  z-index: 1;
+}
+.tooltip #info{
+  height: 2em;
+  width: auto;
+}
+.tooltip #control_keys{
+  height: 6em;
+  width: auto;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+
+@media (max-width: 1000px) {
+  .header {
+    display: none;
+    
+  }
+}
+input {
+  font-size: 1.2em;
+}
+/*Убираем стрелочки на input{   */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+input[type="number"]:hover,
+input[type="number"]:focus {
+  -moz-appearance: number-input;
+}
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/*}   Убираем стрелочки на input*/
+
+input:focus {
+  outline-color: rgb(77, 144, 254);
+  outline-offset: -1px;
+  outline-style: auto;
+  outline-width: 10px;
+  background-color: var(--color-white);
+}
+
+
+/*Блок с вводом первоначальных общих данных для расчета*/
+.options-for-calc {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(2, max-content);
+  border-bottom: 2px solid var(--color-black);
+}
+
+.options-for-calc .label-double, .options-for-calc .input-double {
+  border: 1px solid black;
+  text-align: center;
+  padding: 0.4em;
+  border: 1px solid var(--color-black);
+  /*overflow-wrap: break-word;*/
+
+}
+
+.options-for-calc .label-double {
+  background-color:var(--color-main);
+  
+}
+
+.label-double, .cell-head, .cell-head-short {
+  display: grid;
+  align-items: center;
+}
+
+
+#label-notification-time {
+  padding-top: 1em;
+}
+
+/*Блок с результатами расчета*/
+.result-container {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-rows: repeat(2, max-content);
+  border-bottom: 2px solid var(--color-black);
+}
+.result-container .cell-head, .result-container .result-data {
+  border: 1px solid black;
+  text-align: center;
+  padding: 0.4em;
+  border: 1px solid var(--color-black);
+}
+
+.result-container .cell-head {
+  background-color: var(--color-blue);
+}
+.result-container .result-data {
+  background-color: var(--color-grey);
+  font-size: 1.3em;
+}
+.span-2, #l_from_light {
+  grid-column: span 2;
+}
+/*Блок со вспомогательными сообщениями*/
+.event-messages {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 3fr));
+  border-bottom: 2px solid var(--color-black);
+}
+
+.event-messages .messages {
+  display: block;
+  text-align: center;
+  padding: 0.4em;
+  border: 1px solid var(--color-black);
+  background-color:var(--color-main);
+  font-size: 0.8em;
+  font-weight: bold;
+  min-height: 2em;
+}
+
+
+/*Блок с вводом координат объекта*/
+.obj-coordiantes {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: repeat(2, max-content);
+  width: 100%;
+  border-bottom: 2px solid var(--color-black);
+}
+
+.obj-coordiantes .cell-head, .obj-coordiantes .input-data {
+  border: 1px solid black;
+  text-align: center;
+  padding: 0.4em;
+  border: 1px solid var(--color-black);
+}
+
+.obj-coordiantes .cell-head {
+  background-color: var(--color-blue);
+}
+
+/*Блок с вводом координат участков и их скоростей*/
+.path-to-obj {
+  display: grid;
+  position: relative;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-rows: repeat(15, max-content);
+}
+
+.path-to-obj .cell-head, .path-to-obj .input-data {
+  text-align: center;
+  padding: 0.4em;
+  border: 1px solid var(--color-black);
+}
+.path-to-obj .col1 {
+  margin-left: 30px;
+}
+
+
+.path-to-obj #train {
+  border: 1px solid black;
+  border: 1px solid var(--color-black);
+  background-color: var(--color-white);
+  display: block;
+  position: absolute;
+  top:0;
+  left:0;
+  padding-top: 5%;
+  width: 30px;
+  height: 100%; 
+}
+img {
+  
+  height: auto;
+  width: 100%;
+}
+
+footer {
+  border: 1px solid var(--color-black);
+  font-size: 0.8em;
+  padding-top: 0.5em;
+  text-align: center;
+}
