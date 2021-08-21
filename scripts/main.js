@@ -262,7 +262,6 @@ function try_recalc(){
 
     //Проверяем наличие ординат пути
     if (ord_speed_for_calc.count===0){
-        alert("нет ординат")
         return;
     }
 
@@ -320,11 +319,8 @@ function try_recalc(){
 
     let move_time = 0;
     let trafic_sections = []
-    //alert(previous_trafic_section.speed_end_);
     let start_speed_local = parseFloat(start_speed/(3.6));
     for (let i = ord_speed_for_calc.count-1; i > 0; i--){
-        //alert(ord_speed_for_calc.ord[i] + "/" + ord_speed_for_calc.ord[i-1]+ "/" +start_speed_local
-        //+ "/" + ord_speed_for_calc.max_speed[i]);
         trafic_sections[i] = move_track(
             ord_speed_for_calc.ord[i],
             ord_speed_for_calc.ord[i-1],
@@ -333,7 +329,6 @@ function try_recalc(){
             );
             start_speed_local = trafic_sections[i].speed_end_;   
         move_time += trafic_sections[i].time_mov;
-        //alert(ord_speed_for_calc.ord[i-1] + "/" +ord_speed_for_calc.ord[i]+ "/" + previous_trafic_section.speed_end_ + "/" + ord_speed_for_calc.max_speed[i]);
     }
     trafic_sections[0] = move_track(
         ord_speed_for_calc.ord[0],
@@ -342,8 +337,6 @@ function try_recalc(){
         ord_speed_for_calc.max_speed[0]
         );
     move_time += trafic_sections[0].time_mov;
-    alert(ord_speed_for_calc.max_speed[0]+'/'+start_speed_local+'/'+obj_ordinate+'/'+ord_speed_for_calc.ord[0]);
-    //alert(move_time);
     let len_notification_calc = document.getElementById("len_notification_calc");
     let len_notification_fact = document.getElementById("len_notification_fact");
     let time_notification = document.getElementById("time_notification");
