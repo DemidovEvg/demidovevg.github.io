@@ -35,6 +35,7 @@ function store_value(id){
     element_input = document.getElementById(id);
 
     if (element_input){
+        alert(typeof(element_input.value) + '/' + element_input.value);
         value = element_input.value;
         localStorage.setItem(id, value);
     }
@@ -242,8 +243,8 @@ function try_recalc(){
             input.style.backgroundColor = colors.white;
             input.setAttribute("placeholder", "");
         }
-        if (!((sector_ord[i-1] == "null") || (sector_ord[i-1] == ""))){
-            alert(typeof(sector_ord[i-1]));
+        if (!((sector_ord[i-1] === "null") || (sector_ord[i-1] === ""))){
+            //alert(typeof(sector_ord[i-1]));
             ord_speed_for_calc.ord[ord_speed_for_calc.count] = parseFloat(sector_ord[i-1]);
             ord_speed_for_calc.max_speed[ord_speed_for_calc.count] = parseFloat(speed_on_sector[i-1]/(3.6));
             ord_speed_for_calc.count_ord_in_table[ord_speed_for_calc.count] = i;
