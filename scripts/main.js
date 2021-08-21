@@ -217,11 +217,9 @@ function try_recalc(){
     let input;
     
     for(let i=1; i<=max_sector; i++){
-        sector_picket[i-1] = localStorage.getItem("sector_picket" + i);
-        sector_ord[i-1] = localStorage.getItem("sector_ord" + i);
-        speed_on_sector[i-1] = localStorage.getItem("speed_on_sector" + i);
-        alert(typeof(sector_ord[i-1]));
-        alert(String(sector_ord[i-1]));
+        sector_picket[i-1] = String(localStorage.getItem("sector_picket" + i));
+        sector_ord[i-1] = String(localStorage.getItem("sector_ord" + i));
+        speed_on_sector[i-1] = String(localStorage.getItem("speed_on_sector" + i));
         input = document.getElementById("sector_picket" + i);
         input.style.backgroundColor = colors.white;
         input = document.getElementById("sector_ord" + i);
@@ -246,7 +244,7 @@ function try_recalc(){
             input.setAttribute("placeholder", "");
         }
         if (!((sector_ord[i-1] === "null") || (sector_ord[i-1] === ""))){
-            //alert(typeof(sector_ord[i-1]));
+            alert(typeof(sector_ord[i-1]));
             ord_speed_for_calc.ord[ord_speed_for_calc.count] = parseFloat(sector_ord[i-1]);
             ord_speed_for_calc.max_speed[ord_speed_for_calc.count] = parseFloat(speed_on_sector[i-1]/(3.6));
             ord_speed_for_calc.count_ord_in_table[ord_speed_for_calc.count] = i;
