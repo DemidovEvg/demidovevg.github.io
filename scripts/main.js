@@ -244,7 +244,7 @@ function try_recalc(){
             input.setAttribute("placeholder", "");
         }
         if (!((sector_ord[i-1] === "null") || (sector_ord[i-1] === ""))){
-            alert(typeof(sector_ord[i-1]));
+            //alert(typeof(sector_ord[i-1]));
             ord_speed_for_calc.ord[ord_speed_for_calc.count] = parseFloat(sector_ord[i-1]);
             ord_speed_for_calc.max_speed[ord_speed_for_calc.count] = parseFloat(speed_on_sector[i-1]/(3.6));
             ord_speed_for_calc.count_ord_in_table[ord_speed_for_calc.count] = i;
@@ -257,7 +257,7 @@ function try_recalc(){
         }
           
     }
-    alert(ord_speed_for_calc.count);
+    //alert(ord_speed_for_calc.count);
     //} Считаем параметры движения по всем возможным участкам
 
     // Проверяем порядок ординат если значений больше одного{
@@ -338,6 +338,7 @@ function try_recalc(){
         ord_speed_for_calc.max_speed[0]
         );
     move_time += trafic_sections[0].time_mov;
+    alert(move_time);
     //alert(move_time);
     let len_notification_calc = document.getElementById("len_notification_calc");
     let len_notification_fact = document.getElementById("len_notification_fact");
