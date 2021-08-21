@@ -61,6 +61,7 @@ function get_data_check_enought_data(){
 }
 
 function move_track(ordinate_start, ordinate_end, speed_begin, speed_max){
+    let acceleration = parseFloat(localStorage.getItem("acceleration"));
     let trafic_section = {
         speed_max: speed_max,
         speed_begin_: speed_begin,
@@ -78,25 +79,24 @@ function move_track(ordinate_start, ordinate_end, speed_begin, speed_max){
     //2) Движение с ускорением
     //Определим время достижения максимальной скорости поезда
     let time_to_max_speed;
-    const a = 0.8; //Ускорение в м/с 
-    time_to_max_speed = (speed_max - speed_begin)/a;
+    time_to_max_speed = (speed_max - speed_begin)/acceleration;
     let time_with_acceleration;
      
     //По расстоянию определим время движения по участку если двигаемся только с ускорением
-    time_with_acceleration = (-speed_begin + Math.sqrt(Math.pow(speed_begin,2) + 2 * a * S))/a;
+    time_with_acceleration = (-speed_begin + Math.sqrt(Math.pow(speed_begin,2) + 2 * acceleration * S))/acceleration;
     //alert(time_with_acceleration);
     if (time_with_acceleration<=time_to_max_speed) {
-        trafic_section.speed_end_ = speed_begin + a * time_with_acceleration;
+        trafic_section.speed_end_ = speed_begin + acceleration * time_with_acceleration;
         trafic_section.time_mov = time_with_acceleration;   
         trafic_section.type = "speed only with acceleration";    
         return trafic_section;
     } else {
         //Если попали сюда, то значит часть участка разгоняемся, а по части едим с одной скоростью
-        let s_with_aceleration;
-        s_with_aceleration = speed_begin *  time_to_max_speed + a*Math.pow(time_to_max_speed,2)/2;
+        let s_with_acceleration;
+        s_with_acceleration = speed_begin *  time_to_max_speed + acceleration*Math.pow(time_to_max_speed,2)/2;
         
         let s_with_const_speed;
-        s_with_const_speed = S - s_with_aceleration;
+        s_with_const_speed = S - s_with_acceleration;
         //alert(s_with_const_speed);
         let time_with_const_speed;
         time_with_const_speed = s_with_const_speed/speed_max;
@@ -155,7 +155,8 @@ function reset_view(){
 function try_recalc(){
     reset_view();
     let notification_time_required =  parseFloat(localStorage.getItem("notification_time_required"));
-    let obj_width =  localStorage.getItem("obj_width");
+    let obj_width =  parseFloat(localStorage.getItem("obj_width"));
+    let acceleration = parseFloat(localStorage.getItem("acceleration"));
     let obj_picket = localStorage.getItem("obj_picket");
     let obj_ordinate = localStorage.getItem("obj_ordinate");
     let start_speed = localStorage.getItem("start_speed");
@@ -171,6 +172,17 @@ function try_recalc(){
     } else if (notification_time_required<=0)
     {
         message_error.textContent = "Введите корректное время";
+        message_error.style.backgroundColor = colors.red;
+        return;
+    }
+    //////////////
+    if (!acceleration){
+        message_error.textContent = "Введите ускорение";
+        message_error.style.backgroundColor = colors.red;
+        return;
+    } else if (notification_time_required<=0)
+    {
+        message_error.textContent = "Введите корректное ускорение";
         message_error.style.backgroundColor = colors.red;
         return;
     }
@@ -318,6 +330,12 @@ function try_recalc(){
             }
         }
     //} Проверяем наличие скоростей
+    //Корректируем ординаты с учетом ширины объекта
+    if (obj_ordinate>ord_speed_for_calc.ord[0]){
+        obj_ordinate = obj_ordinate - obj_width;
+    } else{
+        obj_ordinate = obj_ordinate + obj_width;
+    }
 
     let move_time = 0;
     let trafic_sections = []
@@ -377,7 +395,6 @@ function try_recalc(){
     // 1) Идет с конца и набираем извещение
     let time_select_for_notif_calc = 0;
     let len_remaining_current_section;
-    const a = 0.8; //Ускорение в м/с
     for (let i = 0; i <  ord_speed_for_calc.count; i++){
         //alert(trafic_sections[i].time_mov);
         time_select_for_notif_calc += trafic_sections[i].time_mov;
@@ -389,9 +406,17 @@ function try_recalc(){
             if (trafic_sections[i].type==="speed const"){
                 len_remaining_current_section = trafic_sections[i].speed_end_*time_remaining_current_section;
             } else if(trafic_sections[i].type==="speed only with acceleration"){
-                len_remaining_current_section = 
+                if (time_remaining_current_section>trafic_sections[i].time_mov){
+                    len_remaining_current_section = 
+                    trafic_sections[i].speed_end_*trafic_sections[i].time_mov - 
+                    acceleration * Math.pow(trafic_sections[i].time_mov,2)/2 + 
+                    (time_remaining_current_section - trafic_sections[i].time_mov)* trafic_sections[i].speed_begin_;
+                } else{
+                    len_remaining_current_section = 
                     trafic_sections[i].speed_end_*time_remaining_current_section - 
-                    a * Math.pow(time_remaining_current_section,2)/2;
+                    acceleration * Math.pow(time_remaining_current_section,2)/2;
+                }
+                
             } else{
                 if (time_select_for_notif_calc+trafic_sections[i].time_with_const_speed_>= notification_time_required){
                     //значит подучастка с постоянной скоростью достаточно
@@ -402,7 +427,7 @@ function try_recalc(){
                     time_remaining_current_section -= trafic_sections[i].time_with_const_speed_;
                     len_remaining_current_section = trafic_sections[i].len_section_with_const_speed + 
                         trafic_sections[i].speed_end_*time_remaining_current_section - 
-                        a * Math.pow(time_remaining_current_section,2)/2;                   
+                        acceleration * Math.pow(time_remaining_current_section,2)/2;                   
                 }
             }
             //alert(len_remaining_current_section);
@@ -433,6 +458,7 @@ function reload_recalc_listener(id){
 }
 reload_recalc_listener("notification_time_required");
 reload_recalc_listener("obj_width");
+reload_recalc_listener("acceleration");
 reload_recalc_listener("obj_picket");
 reload_recalc_listener("obj_ordinate");
 reload_recalc_listener("start_speed");
@@ -449,14 +475,15 @@ try_recalc();
     document.getElementById('notification_time_required').addEventListener('keydown', function(e){ 
         control(e,'','obj_width','obj_picket','','obj_width'); });
     document.getElementById('obj_width').addEventListener('keydown', function(e){ 
-        control(e,'','','start_speed','notification_time_required','obj_picket'); });
+        control(e,'','acceleration','obj_ordinate','notification_time_required','acceleration'); });
+    document.getElementById('acceleration').addEventListener('keydown', function(e){ 
+        control(e,'','','start_speed','obj_width','obj_picket'); });   
     document.getElementById('obj_picket').addEventListener('keydown', function(e){ 
         control(e,'notification_time_required','obj_ordinate','sector_picket1','','obj_ordinate'); });
     document.getElementById('obj_ordinate').addEventListener('keydown', function(e){ 
-        control(e,'notification_time_required','start_speed','sector_ord1','obj_picket','start_speed'); });
+        control(e,'obj_width','start_speed','sector_ord1','obj_picket','start_speed'); });
     document.getElementById('start_speed').addEventListener('keydown', function(e){ 
-        control(e,'obj_width','','speed_on_sector1','obj_ordinate','sector_picket1'); });
-
+        control(e,'acceleration','','speed_on_sector1','obj_ordinate','sector_picket1'); });
     ///Управление столбца "Пикет точки отсчета"
     document.getElementById('sector_picket1').addEventListener('keydown', function(e){ 
         control(e,'obj_picket','sector_ord1','sector_picket2','','sector_ord1'); });

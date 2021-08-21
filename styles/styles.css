@@ -127,7 +127,7 @@ input:focus {
 /*Блок с вводом первоначальных общих данных для расчета*/
 .options-for-calc {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   grid-template-rows: repeat(2, max-content);
   border-bottom: 2px solid var(--color-black);
 }
