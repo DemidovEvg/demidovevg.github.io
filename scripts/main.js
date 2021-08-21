@@ -1,3 +1,13 @@
+const colors = {
+    blue:'#92b4fd',
+    grey:'#c5c6ca',
+    yellow:'#ffd540',
+    black:'#000',
+    white:'#f4f5ff',
+    red:'#ff7575',
+    green: '#a2cff0'
+}
+let no_required = "Не требуется";
 /*Настройка при маленьком экране*/
 document.addEventListener("DOMContentLoaded", function(event) { 
     var widthWind = document.querySelector('body').offsetWidth;
@@ -16,17 +26,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
         cell1.textContent="t тр. с места(с)";
         cell1=document.querySelector("#delay_open_light_head");
         cell1.textContent="t зад. откр. св.(с)";
+        no_required = "Не треб.";
     }
 });
-const colors = {
-    blue:'#92b4fd',
-    grey:'#c5c6ca',
-    yellow:'#ffd540',
-    black:'#000',
-    white:'#f4f5ff',
-    red:'#ff7575',
-    green: '#a2cff0'
-}
+
+
 function store_value(id){
     let element_storage;
     let element_input;
@@ -228,7 +232,7 @@ function try_recalc(){
         if (!((sector_picket[i-1] === "null") || (sector_picket[i-1] === "")) && ((sector_ord[i-1] === "null") || (sector_ord[i-1] === ""))){
             input = document.getElementById("sector_ord" + i);        
             input.style.backgroundColor = colors.grey;
-            input.setAttribute("placeholder", "Не требуется");
+            input.setAttribute("placeholder", no_required);
         }else {
             input = document.getElementById("sector_ord" + i);
             input.style.backgroundColor = colors.white;
@@ -237,7 +241,7 @@ function try_recalc(){
         if (((sector_picket[i-1] === "null") || (sector_picket[i-1] === "")) && !((sector_ord[i-1] === "null") || (sector_ord[i-1] === ""))){
             input = document.getElementById("sector_picket" + i);        
             input.style.backgroundColor = colors.grey;
-            input.setAttribute("placeholder", "Не требуется");
+            input.setAttribute("placeholder", no_required);
         }else {
             input = document.getElementById("sector_picket" + i);
             input.style.backgroundColor = colors.white;
