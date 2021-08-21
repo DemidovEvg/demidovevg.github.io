@@ -35,7 +35,7 @@ function store_value(id){
     element_input = document.getElementById(id);
 
     if (element_input){
-        alert(typeof(element_input.value) + '/' + element_input.value);
+        
         value = element_input.value;
         localStorage.setItem(id, value);
     }
@@ -226,9 +226,9 @@ function try_recalc(){
         input.style.backgroundColor = colors.white;
         //alert(sector_picket[i-1]);
         if (!((sector_picket[i-1] === "null") || (sector_picket[i-1] === "")) && ((sector_ord[i-1] === "null") || (sector_ord[i-1] === ""))){
-                input = document.getElementById("sector_ord" + i);        
-                input.style.backgroundColor = colors.grey;
-                input.setAttribute("placeholder", "Не требуется");
+            input = document.getElementById("sector_ord" + i);        
+            input.style.backgroundColor = colors.grey;
+            input.setAttribute("placeholder", "Не требуется");
         }else {
             input = document.getElementById("sector_ord" + i);
             input.style.backgroundColor = colors.white;
@@ -422,7 +422,7 @@ function reload_recalc_listener(id){
     element_storage = localStorage.getItem(id);  
     //alert(element_storage);
     if (localStorage.hasOwnProperty(id) && (element_storage !== "null")){      
-        //alert(element_storage);
+        alert(element_storage);
         input.value = element_storage;
     }
     
