@@ -242,7 +242,7 @@ function try_recalc(){
             input.style.backgroundColor = colors.white;
             input.setAttribute("placeholder", "");
         }
-        if (!((sector_ord[i-1] === "null") || (sector_ord[i-1] === ""))){
+        if (!((sector_ord[i-1] == "null") || (sector_ord[i-1] == ""))){
             alert(typeof(sector_ord[i-1]));
             ord_speed_for_calc.ord[ord_speed_for_calc.count] = parseFloat(sector_ord[i-1]);
             ord_speed_for_calc.max_speed[ord_speed_for_calc.count] = parseFloat(speed_on_sector[i-1]/(3.6));
