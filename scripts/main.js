@@ -220,6 +220,8 @@ function try_recalc(){
         sector_picket[i-1] = localStorage.getItem("sector_picket" + i);
         sector_ord[i-1] = localStorage.getItem("sector_ord" + i);
         speed_on_sector[i-1] = localStorage.getItem("speed_on_sector" + i);
+        alert(typeof(sector_ord[i-1]));
+        alert(String(sector_ord[i-1]));
         input = document.getElementById("sector_picket" + i);
         input.style.backgroundColor = colors.white;
         input = document.getElementById("sector_ord" + i);
@@ -422,7 +424,7 @@ function reload_recalc_listener(id){
     element_storage = localStorage.getItem(id);  
     //alert(element_storage);
     if (localStorage.hasOwnProperty(id) && (element_storage !== "null") && (element_storage !== "")){      
-        alert(element_storage);
+        //alert(element_storage);
         input.value = element_storage;
     }
     
