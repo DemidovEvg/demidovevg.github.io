@@ -241,16 +241,18 @@ input:focus {
   border: 1px solid black;
   border: 1px solid var(--color-black);
   background-color: var(--color-white);
-  display: block;
+  display: grid;
   position: absolute;
   top:0;
   left:0;
-  padding-top: 5%;
+  /*padding-top: 5%;*/
   width: 30px;
   height: 100%; 
+  align-content: center;
 }
+
 img {
-  
+  display: block;
   height: auto;
   width: 100%;
 }

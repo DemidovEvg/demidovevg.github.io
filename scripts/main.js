@@ -7,21 +7,21 @@ const colors = {
     red:'#ff7575',
     green: '#a2cff0'
 }
-let no_required = "Не требуется";
+var no_required = "Не требуется";
 /*Настройка при маленьком экране*/
 document.addEventListener("DOMContentLoaded", function(event) { 
     var widthWind = document.querySelector('body').offsetWidth;
     if (widthWind <= 1000) {
         var cell1=document.querySelector("#len_notification_calc_head");
         cell1.textContent="L уч. изв. расч.(м)";
-        var cell1=document.querySelector("#len_notification_fact_head");
+        cell1=document.querySelector("#len_notification_fact_head");
         cell1.textContent="L уч. изв. факт.(м)";
         cell1=document.querySelector("#time_notification_head");
         cell1.textContent="t изв. ф.(с)";
         cell1=document.querySelector("#delay_notification_head");
         cell1.textContent="t зад. изв. р.(с)";
         cell1=document.querySelector("#l_from_light_head");
-        cell1.textContent="L от тон. до св.(м)";
+        cell1.textContent="L от объекта до св.(м)";
         cell1=document.querySelector("#time_from_light_head");
         cell1.textContent="t тр. с места(с)";
         cell1=document.querySelector("#delay_open_light_head");
