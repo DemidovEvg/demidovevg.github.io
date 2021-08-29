@@ -50,6 +50,7 @@ body {
   min-width: 3em;
   max-width: 3em;
   margin: 0 auto;
+  margin-right: 1em;
 }
 
 h1 {
