@@ -68,6 +68,7 @@ input {
   font-size: 1.2em;
 }
 /*Убираем стрелочки на input{   */
+  
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
