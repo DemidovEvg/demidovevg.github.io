@@ -18,23 +18,31 @@ body {
   background-color: #727272;
   
 }
+.container-outer {
+  margin: 0 auto;
+  max-width: 1000px;
+  background-color: var(--color-grey);
+  border: 1px solid black;
 
-.container-help {
+} 
+.container-inner {
   margin: 0 auto;
   padding-top: 0.1em;
   padding-right: 1.5em;
   padding-left: 2em;
   padding-bottom: 1em;
-  max-width: 1000px;
   background-color: var(--color-grey);
-  border: 1px solid black
+  
 
 } 
-.container-help ul {
+.container-inner  a{
+ color: black;
+}
+.container-inner  ul {
   list-style: '─  ';
   text-align: justify;
 }
-.container-help  li {
+.container-inner li {
   line-height: 1.5;
   
 }
