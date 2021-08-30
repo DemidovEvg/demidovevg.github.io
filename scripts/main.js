@@ -333,9 +333,9 @@ function try_recalc(){
     alert(obj_ordinate)
     //Корректируем ординаты с учетом ширины объекта
     if (obj_ordinate>ord_speed_for_calc.ord[0]){
-        obj_ordinate = obj_ordinate - Math.ceil(obj_width/2);
+        obj_ordinate = parseFloat(obj_ordinate) - Math.ceil(obj_width/2);
     } else{
-        obj_ordinate = obj_ordinate + Math.ceil(obj_width/2);
+        obj_ordinate = parseFloat(obj_ordinate) + Math.ceil(obj_width/2);
     }
     alert(obj_ordinate)
     let move_time = 0;
