@@ -103,8 +103,9 @@ function move_track(ordinate_start, ordinate_end, speed_begin, speed_max){
         trafic_section.speed_end_ = speed_max;
         trafic_section.time_mov = time_to_max_speed + time_with_const_speed;
         trafic_section.type = "speed with acceleration and const";
-        trafic_section.len_section_with_const_speed = ordinate_end- s_with_const_speed;
+        trafic_section.len_section_with_const_speed = s_with_const_speed;
         trafic_section.time_with_const_speed_ = time_with_const_speed;
+        trafic_section.time_with_acceleration_ = time_to_max_speed;
         return trafic_section;
     }
 
@@ -407,15 +408,17 @@ function try_recalc(){
             if (trafic_sections[i].type==="speed const"){
                 len_remaining_current_section = trafic_sections[i].speed_end_*time_remaining_current_section;
             } else if(trafic_sections[i].type==="speed only with acceleration"){
-                if (time_remaining_current_section>trafic_sections[i].time_mov){
+                if (time_remaining_current_section > trafic_sections[i].time_mov){
+                    
                     len_remaining_current_section = 
-                    trafic_sections[i].speed_end_*trafic_sections[i].time_mov - 
-                    acceleration * Math.pow(trafic_sections[i].time_mov,2)/2 + 
-                    (time_remaining_current_section - trafic_sections[i].time_mov)* trafic_sections[i].speed_begin_;
+                        trafic_sections[i].speed_end_*trafic_sections[i].time_mov - 
+                        acceleration * Math.pow(trafic_sections[i].time_mov,2)/2 + 
+                        (time_remaining_current_section - trafic_sections[i].time_mov)* trafic_sections[i].speed_begin_;
+                    //alert(len_remaining_current_section);
                 } else{
                     len_remaining_current_section = 
-                    trafic_sections[i].speed_end_*time_remaining_current_section - 
-                    acceleration * Math.pow(time_remaining_current_section,2)/2;
+                        trafic_sections[i].speed_end_*time_remaining_current_section - 
+                        acceleration * Math.pow(time_remaining_current_section,2)/2;
                 }
                 
             } else{
@@ -424,18 +427,30 @@ function try_recalc(){
                     len_remaining_current_section = trafic_sections[i].speed_end_*time_remaining_current_section;
                 } else {
                     //значит определяем сколько осталось набрать на участке ускорения
-                    time_select_for_notif_calc += time_remaining_current_section;
-                    time_remaining_current_section -= trafic_sections[i].time_with_const_speed_;
-                    len_remaining_current_section = trafic_sections[i].len_section_with_const_speed + 
-                        trafic_sections[i].speed_end_*time_remaining_current_section - 
-                        acceleration * Math.pow(time_remaining_current_section,2)/2;                   
+                    if (time_remaining_current_section > trafic_sections[i].time_mov) {
+                        //time_select_for_notif_calc += time_remaining_current_section;   
+                          //alert(len_remainig_current_section);                   
+                        len_remaining_current_section = trafic_sections[i].len_section_with_const_speed + 
+                            trafic_sections[i].speed_end_*trafic_sections[i].time_with_acceleration_ - 
+                            acceleration * Math.pow(trafic_sections[i].time_with_acceleration_,2)/2 + 
+                            (time_remaining_current_section - trafic_sections[i].time_mov)* trafic_sections[i].speed_begin_;   
+                            
+                    } else {
+                        
+                        let time_remaining_with_acceleration = time_remaining_current_section - trafic_sections[i].time_with_const_speed_;
+                        //alert(time_remaining_with_acceleration );
+                        len_remaining_current_section = trafic_sections[i].len_section_with_const_speed + 
+                            trafic_sections[i].speed_end_*time_remaining_with_acceleration  - 
+                            acceleration * Math.pow(time_remaining_with_acceleration ,2)/2;
+                        //alert(time_remaining_current_section_minus_const_speed); 
+                    }             
                 }
             }
             //alert(len_remaining_current_section);
             len_notification_calc.textContent = Math.round((Math.abs(obj_ordinate - 
                 trafic_sections[i].ordinate_end_)+
                 len_remaining_current_section)*10)/10;
-
+            
             break;
         }
     }   

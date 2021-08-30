@@ -103,6 +103,7 @@ input:focus {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   grid-template-rows: repeat(2, max-content);
   border-bottom: 2px solid var(--color-black);
+  justify-content: end;
 }
 
 .options-for-calc .label-double, .options-for-calc .input-double {
