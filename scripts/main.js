@@ -157,6 +157,9 @@ function try_recalc(){
     reset_view();
     let notification_time_required =  parseFloat(localStorage.getItem("notification_time_required"));
     let obj_width =  parseFloat(localStorage.getItem("obj_width"));
+    if (isNaN(obj_width)){
+        obj_width = 0;
+    }
     let acceleration = parseFloat(localStorage.getItem("acceleration"));
     let obj_picket = localStorage.getItem("obj_picket");
     let obj_ordinate = localStorage.getItem("obj_ordinate");
